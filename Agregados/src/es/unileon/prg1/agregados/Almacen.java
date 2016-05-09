@@ -47,7 +47,7 @@ class Almacen{
 		if(existe(producto) == true){
 			error.append("El producto " + producto.obtenerNombre() + " ya existe.");
 		}else if(this.siguiente == MAXIMO_PROD){
-			error.append("El almacÈn est· lleno.");
+			error.append("El almac√©n est√° lleno.");
 		}else {
 			this.productos[this.siguiente++] = new Producto(producto);	
 			correcto = true;
@@ -83,22 +83,20 @@ class Almacen{
 	 */
 	Producto buscar(String nombre){
 		Producto producto;
-		int comparar, mitad, limiteInferior, limiteSuperior;
+		int mitad, limiteInferior, limiteSuperior;
 		
 		mitad = 0;
-		comparar = 0;
 		limiteInferior = 0;
-		limiteSuperior = productos.length-1;
+		limiteSuperior = this.siguiente-1;
 		
 		
 		producto = null;
 		
 		while((limiteInferior <= limiteSuperior) && (producto == null)){
 			mitad = (limiteInferior + limiteSuperior) / 2;
-			comparar = productos[mitad].compareTo(nombre);
-			if (comparar < 0){
+			if(this.productos[mitad].esMenor(nombre) == true){
 				limiteInferior = mitad +1;
-			}else if (comparar > 0){
+			}else if(this.productos[mitad].esMayor(nombre) == true){
 				limiteSuperior = mitad -1;
 			}else {
 				producto = productos[mitad];
@@ -132,7 +130,7 @@ class Almacen{
 		int limiteSuperior, limiteInferior;
 		boolean fin, cambiado;
 
-		limiteSuperior = productos.length;
+		limiteSuperior = siguiente;
 		limiteInferior = -1;
 		fin = false;
 
